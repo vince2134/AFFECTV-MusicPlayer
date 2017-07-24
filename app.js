@@ -11,9 +11,27 @@ app.get('/', function(req, res){
   res.sendFile('index.html');
 });
 
-app.get('/read_user', function(req, res){
-  console.log('test');
-  playMusic();
+var index = -1;
+var songs = [
+  "spotify:track:3zSCNTXI7Ed0PiidZVmzIe",
+  "spotify:track:3VTw0oAbOy7CIKR8mbSBFV",
+  "spotify:track:0mBKv9DkYfQHjdMcw2jdyI",
+  "spotify:track:5CtI0qwDJkDQGwXD1H1cLb",
+  "spotify:track:3DXncPQOG4VBw3QHh3S817",
+  "spotify:track:1x5sYLZiu9r5E43kMlt9f8",
+  "spotify:track:4iLqG9SeJSnt0cSPICSjxv",
+  "spotify:track:79cuOz3SPQTuFrp8WgftAu"
+];
+
+app.get('/next', function(req, res){
+  //helper.player.play('spotify:track:5CtI0qwDJkDQGwXD1H1cLb');
+  // helper.player.on('ready', () => {
+    console.log("Called");
+    helper.player.play(songs[++index % songs.length]);
+
+
+  // });
+  res.status(200).send("Success");
 });
 
 app.get('/pause', function(req, res){
@@ -95,7 +113,7 @@ function playMusic(){
   });
 }
 
-playMusic();
+//playMusic();
 
 console.log('Listening on 8888');
 app.listen(8888);
